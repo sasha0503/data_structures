@@ -13,6 +13,8 @@ class DoublyLinkedList:
         self.tail = None
 
     def append(self, value):
+        if not isinstance(value, int):
+            raise TypeError(f"Value {value} is not an integer.")
         if self.head is None:
             self.head = Node(value)
             self.tail = self.head
@@ -22,6 +24,8 @@ class DoublyLinkedList:
             self.tail = self.tail.next
 
     def prepend(self, value):
+        if not isinstance(value, int):
+            raise TypeError(f"Value {value} is not an integer.")
         if self.head is None:
             self.head = Node(value)
             self.tail = self.head
@@ -109,6 +113,8 @@ class DoublyLinkedList:
         return result
 
     def __str__(self):
+        if self.head is None:
+            return "[]"
         current = self.head
         result = "["
         while current is not None:
@@ -141,3 +147,4 @@ def swap_k(dll1, dll2, k):
 
 if __name__ == '__main__':
     dll = DoublyLinkedList()
+    print(dll)

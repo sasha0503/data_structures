@@ -18,7 +18,7 @@ class DllTest(unittest.TestCase):
         self.assertIsNone(dll.head)
         self.assertIsNone(dll.tail)
 
-    def test_append(self):
+    def test_append_success(self):
         dll = DoublyLinkedList()
         dll.append(1)
         dll.append(2)
@@ -29,7 +29,14 @@ class DllTest(unittest.TestCase):
         self.assertEqual(dll.tail.prev.value, 1)
         self.assertEqual(dll.tail.next, None)
 
-    def test_prepend(self):
+    def test_append_fail(self):
+        dll = DoublyLinkedList()
+        with self.assertRaises(TypeError):
+            dll.append("1")
+        with self.assertRaises(TypeError):
+            dll.append(1.0)
+
+    def test_prepend_success(self):
         dll = DoublyLinkedList()
         dll.prepend(1)
         dll.prepend(2)
@@ -39,6 +46,13 @@ class DllTest(unittest.TestCase):
         self.assertEqual(dll.head.prev, None)
         self.assertEqual(dll.tail.prev.value, 2)
         self.assertEqual(dll.tail.next, None)
+
+    def test_prepend_fail(self):
+        dll = DoublyLinkedList()
+        with self.assertRaises(TypeError):
+            dll.prepend("1")
+        with self.assertRaises(TypeError):
+            dll.prepend(1.0)
 
     def test_remove_success(self):
         dll = DoublyLinkedList()
@@ -152,7 +166,7 @@ class DllTest(unittest.TestCase):
 
     def test_str(self):
         dll = DoublyLinkedList()
-        self.assertEqual(str(dll), "")
+        self.assertEqual(str(dll), "[]")
         dll.append(1)
         self.assertEqual(str(dll), "[1]")
         dll.append(2)
