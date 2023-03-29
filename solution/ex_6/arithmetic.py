@@ -4,8 +4,14 @@ from solution.ex_5.bracket import is_balanced
 def infix_to_rpn(expression: str) -> list:
     stack = []
     rpn = []
-    for token in expression:
+    i = 0
+    while i < len(expression):
+        token = expression[i]
+        i += 1
         if token.isdigit():
+            while i < len(expression) and expression[i].isdigit():
+                token += expression[i]
+                i += 1
             rpn.append(token)
         if token == '(':
             stack.append(token)
@@ -41,7 +47,7 @@ def calculate_rpn(rpn):
 
 
 if __name__ == '__main__':
-    expression = "2+(3+2*(5-4)/2)+3"
+    expression = "(20+(3+2*(5-4)/2)+3)*10"
     if not is_balanced(expression):
         print("Check your parentheses")
         exit(1)
