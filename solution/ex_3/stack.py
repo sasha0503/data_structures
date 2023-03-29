@@ -2,6 +2,9 @@ class Stack:
     def __init__(self):
         self.stack = []
 
+    def __getitem__(self, item):
+        return self.stack[item]
+
     def push(self, value):
         self.stack.append(value)
 

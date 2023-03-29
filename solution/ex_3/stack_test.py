@@ -26,6 +26,23 @@ class StackTest(unittest.TestCase):
         self.assertEqual(stack.pop(), 2)
         self.assertEqual(stack.pop(), 1)
 
+    def test_pop_empty(self):
+        stack = Stack()
+        with self.assertRaises(IndexError):
+            n = stack.pop()
+
+    def test_get_item(self):
+        stack = Stack()
+        stack.push(1)
+        stack.push(2)
+        stack.push(3)
+        self.assertEqual(stack[0], 1)
+        self.assertEqual(stack[1], 2)
+        self.assertEqual(stack[2], 3)
+        with self.assertRaises(IndexError):
+            n = stack[3]
+        self.assertEqual(stack[-1], 3)
+
 
 class InputTest(unittest.TestCase):
     def test_input(self):
