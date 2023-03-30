@@ -76,21 +76,24 @@ class DoublyLinkedList:
         current.value, current.next.next.value = current.next.next.value, current.value
 
     def split(self, idx):
-        """split the list into two lists at the given index
-        the idx'th element will be in the last element in the first list"""
-
-        if idx < 0 or idx >= len(self):
+        result1 = self.__copy__()
+        result2 = self.__copy__()
+        if idx < 0 or idx >= len(result1):
             raise ValueError(f"Index {idx} is out of bounds.")
-        current = self.head
+
+        current = result1.head
         for _ in range(idx):
             current = current.next
-        result = DoublyLinkedList()
-        result.head = current.next
-        result.head.prev = None
-        result.tail = self.tail
-        current.next = None
-        self.tail = current
-        return self.__copy__(), result
+        result1.tail = current
+        result1.tail.next = None
+
+        current = result2.head
+        for _ in range(idx):
+            current = current.next
+        result2.head = current.next
+        result2.head.prev = None
+
+        return result1, result2
 
     def __copy__(self):
         result = DoublyLinkedList()
