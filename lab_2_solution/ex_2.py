@@ -16,6 +16,7 @@ class RedBlackTree:
     def __init__(self):
         self.root = None
 
+    # Інтерфейс для вставки нового вузла в червоно-чорне дерево
     def insert(self, value):
         node = Node(value)
         if self.root is None:
@@ -25,6 +26,7 @@ class RedBlackTree:
             self._insert_helper(node, self.root)
             self._fix_insert(node)
 
+    # Метод для вставки нового вузла в червоно-чорне дерево
     def _insert_helper(self, node, root):
         if node.value < root.value:
             if root.left is None:
@@ -39,6 +41,7 @@ class RedBlackTree:
             else:
                 self._insert_helper(node, root.right)
 
+    # Метод для виправлення червоно-чорного дерева після вставки нового вузла
     def _fix_insert(self, node):
         while node.parent is not None and node.parent.color == "RED":
             if node.parent == node.parent.parent.left:
@@ -71,6 +74,7 @@ class RedBlackTree:
                     self._left_rotate(node.parent.parent)
         self.root.color = "BLACK"
 
+    # Метод для лівого повороту
     def _left_rotate(self, node):
         right_child = node.right
         node.right = right_child.left
@@ -86,6 +90,7 @@ class RedBlackTree:
         right_child.left = node
         node.parent = right_child
 
+    # Метод для правого повороту
     def _right_rotate(self, node):
         left_child = node.left
         node.left = left_child.right
@@ -101,14 +106,17 @@ class RedBlackTree:
         left_child.right = node
         node.parent = left_child
 
+    # Інтерфейс для видалення вузла з червоно-чорного дерева
     def remove(self, value):
         node = self._search(value)
         if node is not None:
             self._remove_node(node)
 
+    # Інтерфейс для пошуку вузла в червоно-чорному дереві
     def _search(self, value):
         return self._search_helper(value, self.root)
 
+    # Метод для пошуку вузла в червоно-чорному дереві
     def _search_helper(self, value, node):
         if node is None or node.value == value:
             return node
@@ -117,6 +125,7 @@ class RedBlackTree:
         else:
             return self._search_helper(value, node.right)
 
+    # Метод для видалення вузла з червоно-чорного дерева
     def _remove_node(self, node):
         if node.left is not None and node.right is not None:
             successor = self._find_min(node.right)
@@ -140,6 +149,7 @@ class RedBlackTree:
             self._replace_node(node, child)
         del node
 
+    # Метод для заміни вузла
     def _replace_node(self, node, child):
         if node.parent is not None:
             if node == node.parent.left:
@@ -152,6 +162,7 @@ class RedBlackTree:
             child.parent = node.parent
             child.color = "BLACK"
 
+    # Метод для виправлення дерева після видалення вузла
     def _fix_delete(self, node):
         while node != self.root and node.color == "BLACK":
             if node == node.parent.left:
@@ -198,17 +209,20 @@ class RedBlackTree:
                     node = self.root
         node.color = "BLACK"
 
+    # Метод для пошуку мінімального вузла в дереві
     def _find_min(self, node):
         while node.left is not None:
             node = node.left
         return node
 
+    # Метод для проходу по червоно-чорному дереву
     def _traverse_in_order(self, node):
         if node is not None:
             self._traverse_in_order(node.left)
             print(node.value, end=' ')
             self._traverse_in_order(node.right)
 
+    # Інтерфейс для виведення червоно-чорного дерева
     def print_tree(self):
         self._traverse_in_order(self.root)
 
